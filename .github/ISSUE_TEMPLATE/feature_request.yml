@@ -1,0 +1,54 @@
+name: Feature request
+description: Suggest a new card, option or improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas are welcome. For open-ended questions or showing off your profile, [Discussions](https://github.com/chethandvg/profilescape/discussions) is a better fit.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the need rather than the solution. Who benefits, and how often?
+      placeholder: I want visitors to see which repositories I contribute to most, not only the ones I own.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to happen?
+      description: How it could look or work. Sketches, mockups and links to similar cards are very helpful.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have considered
+      description: Other tools, workarounds, or different ways Profilescape could solve this.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - A new card
+        - An existing card
+        - Themes and colours
+        - GitHub Action and workflow
+        - CLI
+        - Website playground
+        - Documentation
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contributing
+      options:
+        - label: I would like to help build this (see CONTRIBUTING.md).

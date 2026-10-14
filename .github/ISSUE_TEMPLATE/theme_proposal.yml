@@ -1,0 +1,111 @@
+name: New theme proposal
+description: Propose a colour theme for every Profilescape card.
+title: "[Theme]: "
+labels:
+  - enhancement
+  - theme
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every theme needs a **dark and a light** palette that read well on GitHub's own backgrounds. You can [try colours in the playground](https://chethandvg.github.io/profilescape) first. If you are comfortable with code, a pull request is welcome too: see "Adding a theme" in [CONTRIBUTING.md](https://github.com/chethandvg/profilescape/blob/main/CONTRIBUTING.md#adding-a-theme).
+
+  - type: input
+    id: name
+    attributes:
+      label: Theme name
+      description: A short, lowercase id plus a display name.
+      placeholder: "nord (Nord)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: inspiration
+    attributes:
+      label: Inspiration
+      description: What is the theme based on? Link the original palette or editor theme, and confirm its licence allows reuse.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dark
+    attributes:
+      label: Dark palette
+      description: Hex colours for every token of the `Palette` type. Leave a line empty if you are unsure; we will help fill it in.
+      render: yaml
+      value: |
+        bg:       "#"   # page background behind full-bleed art
+        panel:    "#"   # card surface
+        panelAlt: "#"   # raised surface
+        border:   "#"
+        text:     "#"   # primary text
+        muted:    "#"   # secondary text
+        faint:    "#"   # tertiary text
+        accentA:  "#"   # gradient start
+        accentB:  "#"   # gradient end, labels
+        success:  "#"
+        chipBg:   "#"
+        empty:    "#"   # empty contribution cell
+        # Optional: keep the suggested values or leave a line empty and we will pick one.
+        grid:        "#"    # decorative grid lines, usually your text colour
+        gridOpacity: 0.05   # 0 to 1, usually 0.04 to 0.05
+        glowOpacity: 0.5    # soft glows, 0 to 1, usually 0.45 to 0.55 in dark mode
+        syntax:             # the hero card's code editor
+          keyword:     "#"
+          type:        "#"
+          string:      "#"
+          property:    "#"
+          number:      "#"
+          punctuation: "#"
+          comment:     "#"
+    validations:
+      required: true
+
+  - type: textarea
+    id: light
+    attributes:
+      label: Light palette
+      render: yaml
+      value: |
+        bg:       "#"
+        panel:    "#"
+        panelAlt: "#"
+        border:   "#"
+        text:     "#"
+        muted:    "#"
+        faint:    "#"
+        accentA:  "#"
+        accentB:  "#"
+        success:  "#"
+        chipBg:   "#"
+        empty:    "#"
+        # Optional
+        grid:        "#"
+        gridOpacity: 0.05
+        glowOpacity: 0.22   # usually 0.2 to 0.28 in light mode
+        syntax:
+          keyword:     "#"
+          type:        "#"
+          string:      "#"
+          property:    "#"
+          number:      "#"
+          punctuation: "#"
+          comment:     "#"
+    validations:
+      required: true
+
+  - type: textarea
+    id: previews
+    attributes:
+      label: Previews
+      description: Optional. Screenshots or SVGs from the playground or `node scripts/preview.ts --card all --theme <id>`, in both modes.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: In both modes, `text` has at least 7:1 and `muted` at least 4.5:1 contrast against `panel` (or I would like help getting there).
+          required: true
+        - label: The palette is my own work or its licence allows reuse in an MIT project.
+          required: true

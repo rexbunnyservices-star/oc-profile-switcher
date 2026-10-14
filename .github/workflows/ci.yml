@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Typecheck, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      # GitHub runs the committed bundle, so it must match the sources exactly.
+      - name: Check dist/ is up to date
+        run: |
+          if ! git diff --exit-code --stat -- dist || [ -n "$(git status --porcelain -- dist)" ]; then
+            git status --short -- dist
+            echo "::error title=dist/ is out of date::Run 'npm run build' and commit the dist/ folder."
+            exit 1
+          fi
+
+      - name: Check generated Action files
+        run: node scripts/gen-actions.ts --check
+
+      # README, docs and Marketplace images are real card output, so a card
+      # change must ship with refreshed images (the social preview PNG is skipped).
+      - name: Check gallery images and doc tables
+        run: node scripts/gallery.ts --check
+
+      - name: Smoke-render every card in every theme
+        run: |
+          for data in demo empty; do
+            out="$RUNNER_TEMP/preview-$data"
+            log="$RUNNER_TEMP/render-$data.log"
+            if ! node scripts/preview.ts --card all --theme all --data "$data" --no-png --out "$out" 2> "$log"; then
+              cat "$log"
+              echo "::error title=Render crashed::scripts/preview.ts exited with an error ($data data)."
+              exit 1
+            fi
+            if grep -q '^!' "$log"; then
+              cat "$log"
+              echo "::error title=Render failed::Some cards failed to render with $data data (see the log above)."
+              exit 1
+            fi
+            count="$(find "$out" -name '*.svg' | wc -l)"
+            if [ "$count" -eq 0 ]; then
+              echo "::error title=Nothing rendered::No SVG files were produced with $data data."
+              exit 1
+            fi
+            echo "Rendered $count SVG files with $data data."
+            find "$out" -name '*.svg' -size +150k -print0 | while IFS= read -r -d '' file; do
+              echo "::warning title=Large SVG::${file#"$out"/} is $(( $(wc -c < "$file") / 1024 )) KB (budget: 150 KB)."
+            done
+          done
+
+  compat:
+    name: Test (Node ${{ matrix.node }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: 22
+          - os: windows-latest
+            node: 24
+          - os: macos-latest
+            node: 24
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test

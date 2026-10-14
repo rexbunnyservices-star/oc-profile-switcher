@@ -1,0 +1,320 @@
+name: Release
+
+# Pushing a tag such as v1.4.0 (matching package.json) publishes:
+#   1. the umbrella release here, and moves the major tag (v1) to it;
+#   2. every single-purpose mirror listed in actions/manifest.json, each with
+#      its own release, version tag and major tag;
+#   3. the profile template repository (contents only, no tags).
+# One-time setup (including the "release" environment that holds MIRROR_TOKEN)
+# and the manual Marketplace step are in docs/RELEASING.md.
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify ${{ github.ref_name }}
+    # Never in forks: they have no MIRROR_TOKEN and must not publish anything.
+    # Every other job needs this one, so they are skipped too.
+    if: github.repository == 'chethandvg/profilescape'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.version.outputs.sha }}
+      major: ${{ steps.version.outputs.major }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+      mirrors: ${{ steps.mirrors.outputs.list }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Check the tag
+        id: version
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="$(jq -r .version package.json)"
+          if [ "v$version" != "$TAG" ]; then
+            echo "::error title=Version mismatch::Tag $TAG does not match package.json version $version. Bump the version, commit, then tag that commit."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor HEAD origin/main; then
+            echo "::error title=Not on main::$TAG points to a commit that is not on main."
+            exit 1
+          fi
+          prerelease=false
+          case "$version" in *-*) prerelease=true ;; esac
+          {
+            echo "sha=$(git rev-parse HEAD)"
+            echo "major=v${version%%.*}"
+            echo "prerelease=$prerelease"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Check dist/ is up to date
+        run: |
+          if ! git diff --exit-code --stat -- dist || [ -n "$(git status --porcelain -- dist)" ]; then
+            echo "::error title=dist/ is out of date::The tagged commit does not contain a fresh build. Run 'npm run build', commit, and tag again."
+            exit 1
+          fi
+
+      - name: Check generated Action files
+        run: node scripts/gen-actions.ts --check
+
+      - name: Check gallery images and doc tables
+        run: node scripts/gallery.ts --check
+
+      - name: List mirrors
+        id: mirrors
+        run: echo "list=$(node scripts/gen-actions.ts --matrix)" >> "$GITHUB_OUTPUT"
+
+  release:
+    name: Publish ${{ github.ref_name }}
+    needs: verify
+    # MIRROR_TOKEN is a secret of the "release" environment, which only accepts
+    # v*.*.* tags, so workflows on other branches and tags cannot read it.
+    environment: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          PRERELEASE: ${{ needs.verify.outputs.prerelease }}
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "Release $TAG already exists."
+            exit 0
+          fi
+          flags=(--verify-tag --generate-notes --title "$TAG")
+          if [ "$PRERELEASE" = "true" ]; then flags+=(--prerelease); fi
+          gh release create "$TAG" --repo "$GITHUB_REPOSITORY" "${flags[@]}"
+
+      - name: Move the major tag
+        if: needs.verify.outputs.prerelease != 'true'
+        env:
+          WORKFLOW_TOKEN: ${{ github.token }}
+          # Fallback when the release changes .github/workflows, which the
+          # workflow token may not do. Optional; see docs/RELEASING.md.
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+          MAJOR: ${{ needs.verify.outputs.major }}
+          SHA: ${{ needs.verify.outputs.sha }}
+        run: |
+          move() {
+            if GH_TOKEN="$1" gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$MAJOR" > /dev/null 2>&1; then
+              GH_TOKEN="$1" gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/$MAJOR" -f sha="$SHA" -F force=true > /dev/null
+            else
+              GH_TOKEN="$1" gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$MAJOR" -f sha="$SHA" > /dev/null
+            fi
+          }
+          if move "$WORKFLOW_TOKEN" || { [ -n "$MIRROR_TOKEN" ] && move "$MIRROR_TOKEN"; }; then
+            echo "$MAJOR now points to $SHA"
+          else
+            echo "::error title=Could not move $MAJOR::Move it by hand: git tag -f $MAJOR $SHA && git push --force origin refs/tags/$MAJOR"
+            exit 1
+          fi
+
+  mirrors:
+    name: Mirror ${{ matrix.repo }}
+    needs:
+      - verify
+      - release
+    environment: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: ${{ fromJSON(needs.verify.outputs.mirrors) }}
+    env:
+      REPO: ${{ matrix.repo }}
+      TAG: ${{ github.ref_name }}
+      SHA: ${{ needs.verify.outputs.sha }}
+      MAJOR: ${{ needs.verify.outputs.major }}
+      PRERELEASE: ${{ needs.verify.outputs.prerelease }}
+    steps:
+      # The commit the pushed tag pointed to when this run was triggered; the
+      # next step proves it is the commit the verify job tested.
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Check this is the verified commit
+        run: |
+          head="$(git rev-parse HEAD)"
+          if [ "$head" != "$SHA" ]; then
+            echo "::error title=Unverified commit::Checked out $head, but the verify job tested $SHA. Nothing was published to $REPO."
+            exit 1
+          fi
+
+      - name: Push the release to the mirror
+        id: push
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          if [ -z "$MIRROR_TOKEN" ]; then
+            # Not configured yet: skip loudly instead of failing the whole release.
+            echo "::warning title=MIRROR_TOKEN is not set::Skipped. Add it as a secret of the release environment (docs/RELEASING.md) to sync this repository automatically."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          src="$GITHUB_WORKSPACE"
+          dir="$RUNNER_TEMP/mirror"
+          git clone --quiet --depth 1 "https://x-access-token:${MIRROR_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${REPO}.git" "$dir"
+          cd "$dir"
+          git checkout --quiet -B main
+
+          # The mirror holds exactly these files; anything else is removed.
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          mkdir -p dist
+          cp "$src/mirrors/$REPO/action.yml" "$src/mirrors/$REPO/README.md" "$src/LICENSE" .
+          cp "$src/dist/index.mjs" dist/index.mjs
+          cat > SOURCE.md <<EOF
+          # Source
+
+          This repository is built from [${GITHUB_REPOSITORY}@${SHA:0:12}](https://github.com/${GITHUB_REPOSITORY}/tree/${SHA}) (release ${TAG}) and published automatically. Do not edit it directly: every release overwrites it.
+
+          Source code, issues, discussions and pull requests live in the umbrella repository: https://github.com/${GITHUB_REPOSITORY}
+          EOF
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "No file changes for $REPO."
+          else
+            git commit --quiet -m "release: $TAG" -m "Built from $GITHUB_REPOSITORY@$SHA"
+          fi
+
+          # Branch and version tag land together or not at all. Version tags are
+          # immutable: the push fails rather than move an existing tag.
+          git tag --force "$TAG"
+          git push --atomic --quiet origin HEAD:main "refs/tags/$TAG"
+          if [ "$PRERELEASE" != "true" ]; then
+            git tag --force "$MAJOR"
+            git push --quiet --force origin "refs/tags/$MAJOR"
+          fi
+          echo "Pushed $TAG to $GITHUB_REPOSITORY_OWNER/$REPO."
+
+      - name: Create the mirror release
+        if: steps.push.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          target="$GITHUB_REPOSITORY_OWNER/$REPO"
+          if gh release view "$TAG" --repo "$target" > /dev/null 2>&1; then
+            echo "Release $TAG already exists in $target."
+            exit 0
+          fi
+          notes="$(cat <<EOF
+          Profilescape $TAG, built from $GITHUB_REPOSITORY@$SHA.
+
+          **Full release notes:** https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG
+
+          \`\`\`yaml
+          - uses: $target@$MAJOR
+          \`\`\`
+          EOF
+          )"
+          flags=(--verify-tag --title "$TAG" --notes "$notes")
+          if [ "$PRERELEASE" = "true" ]; then flags+=(--prerelease); fi
+          gh release create "$TAG" --repo "$target" "${flags[@]}"
+
+  template:
+    name: Sync the template repository
+    needs:
+      - verify
+      - release
+    if: needs.verify.outputs.prerelease != 'true'
+    environment: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      # The commit the pushed tag pointed to when this run was triggered; the
+      # next step proves it is the commit the verify job tested.
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Check this is the verified commit
+        env:
+          SHA: ${{ needs.verify.outputs.sha }}
+        run: |
+          head="$(git rev-parse HEAD)"
+          if [ "$head" != "$SHA" ]; then
+            echo "::error title=Unverified commit::Checked out $head, but the verify job tested $SHA. The template repository was not changed."
+            exit 1
+          fi
+
+      - name: Push template/ to the template repository
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          SHA: ${{ needs.verify.outputs.sha }}
+        run: |
+          if [ -z "$MIRROR_TOKEN" ]; then
+            # Not configured yet: skip loudly instead of failing the whole release.
+            echo "::warning title=MIRROR_TOKEN is not set::Skipped. Add it as a secret of the release environment (docs/RELEASING.md) to sync this repository automatically."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          repo="$(jq -r .template.repo actions/manifest.json)"
+          src="$GITHUB_WORKSPACE/template"
+          dir="$RUNNER_TEMP/template"
+          git clone --quiet --depth 1 "https://x-access-token:${MIRROR_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${repo}.git" "$dir"
+          cd "$dir"
+          git checkout --quiet -B main
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a "$src/." .
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "Template is already up to date."
+            exit 0
+          fi
+          git commit --quiet -m "chore: sync template from $GITHUB_REPOSITORY $TAG" -m "Built from $GITHUB_REPOSITORY@$SHA"
+          git push --quiet origin HEAD:main
+          echo "Synced $GITHUB_REPOSITORY_OWNER/$repo."

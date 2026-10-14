@@ -1,0 +1,116 @@
+name: Bug report
+description: A card renders wrong, the Action fails, or the CLI or playground misbehaves.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make Profilescape better. Please search [existing issues](https://github.com/chethandvg/profilescape/issues?q=is%3Aissue) first.
+
+        **Never paste tokens or other secrets.** Security problems belong in a [private advisory](https://github.com/chethandvg/profilescape/security/advisories/new), not here.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead? For visual bugs, a screenshot of the card says more than words.
+      placeholder: The languages card overlaps its legend when a language name is very long.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How can we reproduce it?
+      description: Your workflow step (or CLI command) and config JSON, with secrets removed.
+      render: yaml
+      placeholder: |
+        - uses: chethandvg/profilescape@v1
+          with:
+            cards: stats,3d
+            theme: aurora
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output
+      description: The output of the Profilescape step, if any. It is formatted as code automatically.
+      render: shell
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - GitHub Action (chethandvg/profilescape)
+        - Single-purpose Action (profilescape-3d, profilescape-stats, ...)
+        - CLI
+        - Website playground
+    validations:
+      required: true
+
+  - type: dropdown
+    id: cards
+    attributes:
+      label: Affected cards
+      multiple: true
+      options:
+        - stats
+        - languages
+        - 3d
+        - grid
+        - repos
+        - hero
+        - stack
+        - socials
+        - Not card-specific
+
+  - type: input
+    id: version
+    attributes:
+      label: Profilescape version
+      description: The ref in your workflow (v1, v1.2.0 or a commit SHA), or the CLI version.
+      placeholder: v1
+    validations:
+      required: true
+
+  - type: input
+    id: theme
+    attributes:
+      label: Theme and mode
+      placeholder: aurora, dark
+
+  - type: input
+    id: runner
+    attributes:
+      label: Runner or environment
+      description: Runner image (ubuntu-latest, self-hosted, GitHub Enterprise Server), or OS and Node.js version for the CLI.
+      placeholder: ubuntu-latest
+
+  - type: input
+    id: viewer
+    attributes:
+      label: Where are you viewing the card?
+      description: For visual bugs, the browser, OS and GitHub theme you see it in.
+      placeholder: Safari 19 on iOS, GitHub dark theme
+
+  - type: input
+    id: link
+    attributes:
+      label: Link to the affected profile or repository
+      description: Optional, but it makes visual bugs much faster to track down.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+        - label: I removed tokens and other secrets from everything above.
+          required: true

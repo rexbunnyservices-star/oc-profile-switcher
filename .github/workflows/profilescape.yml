@@ -1,0 +1,52 @@
+﻿name: Profilescape
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profilescape
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Render profile cards
+        uses: chethandvg/profilescape@v1
+        with:
+          username: rexbunnyservices-star
+          cards: hero,socials,stats,3d,languages,repos,stack
+          theme: aurora
+          readme: README.md
+          config: |
+            {
+              "options": {
+                "hero": {
+                  "name": "REX Bunny Services",
+                  "role": "AI Automation • n8n • Full-Stack • Growth",
+                  "status": "Building systems that drive measurable results",
+                  "chips": ["TypeScript", "Python", "PowerShell", "n8n"]
+                },
+                "stack": {
+                  "icons": ["typescript", "python", "powershell", "nodejs", "astro", "fastapi", "docker", "cloudflare"]
+                },
+                "socials": {
+                  "links": [
+                    {"name": "github", "url": "https://github.com/rexbunnyservices-star"},
+                    {"name": "website", "url": "https://rexbunnyservices.online/"},
+                    {"name": "linkedin", "url": "https://www.linkedin.com/company/rex-bunny-services/"},
+                    {"name": "email", "url": "mailto:help@rexbunnyservices.online"}
+                  ]
+                }
+              }
+            }
+
