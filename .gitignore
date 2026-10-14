@@ -1,0 +1,19 @@
+# PowerShell
+*.bak
+*.tmp
+*.log
+*.ps1~
+
+# Node
+node_modules/
+.npm/
+
+# Environment / secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# OS cruft
+Thumbs.db
+.DS_Store
+desktop.ini

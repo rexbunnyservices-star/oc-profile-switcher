@@ -1,0 +1,6 @@
+{
+  "localBudgetTokens": 1000000,
+  "pollMs": 2000,
+  "autoStartWithOpenCode": true,
+  "hideWhenOpenCodeClosed": true
+}
