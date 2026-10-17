@@ -38,34 +38,34 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-light.svg" alt="GitHub stats: 87 contributions in the last 12 months. Current streak: 0 days, Longest streak: 2 days, Commits: 78 past year, All-time: 87 since 2026, Best week: 32 in 7 days, On GitHub: 3 months." width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-light.svg" alt="GitHub stats: 92 contributions in the last 12 months. Current streak: 2 days, Longest streak: 2 days, Commits: 82 past year, All-time: 92 since 2026, Best week: 40 in 7 days, On GitHub: 3 months." width="100%" />
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-light.svg" alt="3D contribution landscape: 87 contributions in the last year" width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-light.svg" alt="3D contribution landscape: 92 contributions in the last year" width="100%" />
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/languages-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/languages-light.svg" alt="Most used languages (by commits): Astro 59.2%, CSS 26.9%, HTML 5.9%, TypeScript 5.2%, PowerShell 2.1%, JavaScript 0.7%" width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/languages-light.svg" alt="Most used languages (by commits): Astro 59.3%, CSS 26.1%, TypeScript 6.0%, HTML 5.6%, PowerShell 2.0%, JavaScript 1.0%" width="100%" />
 </picture>
 
 <table>
   <tr>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/oc-profile-switcher">
+<a href="https://github.com/rexbunnyservices-star/okan-innovations">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-light.svg" alt="oc-profile-switcher: OC Profile Switcher - Windows always-on-top account switcher for OpenCode. Privacy-first, no credentials exposed. Built for free unlimited AI usage workflows." width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-light.svg" alt="okan-innovations: Marketing site for Okan Innovations — design &amp; build contractor (Dehradun). Astro + GitHub Pages." width="100%" />
 </picture>
 </a>
     </td>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/rexbunnyservices">
+<a href="https://github.com/rexbunnyservices-star/oc-profile-switcher">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-rexbunnyservices-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-rexbunnyservices-light.svg" alt="rexbunnyservices" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-light.svg" alt="oc-profile-switcher: OC Profile Switcher - Windows always-on-top account switcher for OpenCode. Privacy-first, no credentials exposed. Built for free unlimited AI usage workflows." width="100%" />
 </picture>
 </a>
     </td>
@@ -75,18 +75,18 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 <table>
   <tr>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/eric-toth-demo">
+<a href="https://github.com/rexbunnyservices-star/rexbunnyservices">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-eric-toth-demo-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-eric-toth-demo-light.svg" alt="eric-toth-demo" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-rexbunnyservices-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-rexbunnyservices-light.svg" alt="rexbunnyservices" width="100%" />
 </picture>
 </a>
     </td>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/portfolio">
+<a href="https://github.com/rexbunnyservices-star/eric-toth-demo">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-portfolio-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-portfolio-light.svg" alt="portfolio: Anass — Web Development, AI &amp; Automation Portfolio (Astro)" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-eric-toth-demo-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-eric-toth-demo-light.svg" alt="eric-toth-demo" width="100%" />
 </picture>
 </a>
     </td>
