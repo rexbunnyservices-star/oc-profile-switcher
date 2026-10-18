@@ -54,18 +54,18 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 <table>
   <tr>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/okan-innovations">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-light.svg" alt="okan-innovations: Marketing site for Okan Innovations — design &amp; build contractor (Dehradun). Astro + GitHub Pages." width="100%" />
-</picture>
-</a>
-    </td>
-    <td width="50%">
 <a href="https://github.com/rexbunnyservices-star/oc-profile-switcher">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-dark.svg" />
   <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-light.svg" alt="oc-profile-switcher: OC Profile Switcher - Windows always-on-top account switcher for OpenCode. Privacy-first, no credentials exposed. Built for free unlimited AI usage workflows." width="100%" />
+</picture>
+</a>
+    </td>
+    <td width="50%">
+<a href="https://github.com/rexbunnyservices-star/okan-innovations">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-light.svg" alt="okan-innovations: Marketing site for Okan Innovations — design &amp; build contractor (Dehradun). Astro + GitHub Pages." width="100%" />
 </picture>
 </a>
     </td>
