@@ -38,17 +38,17 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-light.svg" alt="GitHub stats: 92 contributions in the last 12 months. Current streak: 0 days, Longest streak: 2 days, Commits: 82 past year, All-time: 92 since 2026, Best week: 40 in 7 days, On GitHub: 3 months." width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-light.svg" alt="GitHub stats: 94 contributions in the last 12 months. Current streak: 1 day, Longest streak: 2 days, Commits: 84 past year, All-time: 94 since 2026, Best week: 40 in 7 days, On GitHub: 3 months." width="100%" />
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-light.svg" alt="3D contribution landscape: 92 contributions in the last year" width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-light.svg" alt="3D contribution landscape: 94 contributions in the last year" width="100%" />
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/languages-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/languages-light.svg" alt="Most used languages (by commits): Astro 59.3%, CSS 26.1%, TypeScript 6.0%, HTML 5.6%, PowerShell 2.0%, JavaScript 1.0%" width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/languages-light.svg" alt="Most used languages (by commits): Astro 59.5%, CSS 25.6%, TypeScript 6.3%, HTML 5.5%, PowerShell 2.0%, JavaScript 1.1%" width="100%" />
 </picture>
 
 <table>
