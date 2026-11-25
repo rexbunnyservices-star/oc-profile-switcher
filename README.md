@@ -38,12 +38,12 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-light.svg" alt="GitHub stats: 99 contributions in the last 12 months. Current streak: 0 days, Longest streak: 2 days, Commits: 88 past year, All-time: 99 since 2026, Best week: 40 in 7 days, On GitHub: 4 months." width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/stats-light.svg" alt="GitHub stats: 100 contributions in the last 12 months. Current streak: 1 day, Longest streak: 2 days, Commits: 88 past year, All-time: 100 since 2026, Best week: 29 in 7 days, On GitHub: 4 months." width="100%" />
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-light.svg" alt="3D contribution landscape: 99 contributions in the last year" width="100%" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/3d-light.svg" alt="3D contribution landscape: 100 contributions in the last year" width="100%" />
 </picture>
 
 <picture>
@@ -54,10 +54,10 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 <table>
   <tr>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/oc-profile-switcher">
+<a href="https://github.com/rexbunnyservices-star/rex-bunny-tools">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-light.svg" alt="oc-profile-switcher: OC Profile Switcher - Windows always-on-top account switcher for OpenCode. Privacy-first, no credentials exposed. Built for free unlimited AI usage workflows." width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-rex-bunny-tools-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-rex-bunny-tools-light.svg" alt="rex-bunny-tools" width="100%" />
 </picture>
 </a>
     </td>
@@ -75,18 +75,18 @@ Building systems that drive measurable results — AI automation, n8n workflows,
 <table>
   <tr>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/woodandwall">
+<a href="https://github.com/rexbunnyservices-star/oc-profile-switcher">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-woodandwall-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-woodandwall-light.svg" alt="woodandwall" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-oc-profile-switcher-light.svg" alt="oc-profile-switcher: OC Profile Switcher - Windows always-on-top account switcher for OpenCode. Privacy-first, no credentials exposed. Built for free unlimited AI usage workflows." width="100%" />
 </picture>
 </a>
     </td>
     <td width="50%">
-<a href="https://github.com/rexbunnyservices-star/okan-innovations">
+<a href="https://github.com/rexbunnyservices-star/woodandwall">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-dark.svg" />
-  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-okan-innovations-light.svg" alt="okan-innovations: Marketing site for Okan Innovations — design &amp; build contractor (Dehradun). Astro + GitHub Pages." width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-woodandwall-dark.svg" />
+  <img src="https://raw.githubusercontent.com/rexbunnyservices-star/oc-profile-switcher/profilescape-output/repo-rexbunnyservices-star-woodandwall-light.svg" alt="woodandwall" width="100%" />
 </picture>
 </a>
     </td>
